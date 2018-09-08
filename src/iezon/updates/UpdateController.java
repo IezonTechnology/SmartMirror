@@ -7,18 +7,31 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import iezon.interfaces.options.InterfaceController;
+
 public class UpdateController {
+	
+	File file = new File("C:/Temp/SmartMirror.zip");
 
 	public UpdateController() {
-		File file = new File("C:/Temp/SmartMirror.zip");
 		if (file.exists()) {
-			
+			Object selection = InterfaceController.showDialog(
+				new Object[] {"Yes", "No"},
+				"A new update is available. Do you want to update?"
+			);
+			if(selection.equals("Yes")) {
+				update();
+			}
 		}
 	}
 	
-	public void update() {
+	private void update() {
+		// TODO: Update
+		file.delete();
+	}
+	
+	private void downloadUpdate() {
 		try {
-			File file = new File("C:/Temp/SmartMirror.zip");
 			URL url = new URL("https://codeload.github.com/IezonTechnology/SmartMirror/zip/master");
 			copyUrlToFile(url, file);
 		} catch (MalformedURLException e) {

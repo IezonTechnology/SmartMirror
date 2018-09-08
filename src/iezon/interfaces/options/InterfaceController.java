@@ -56,6 +56,10 @@ public class InterfaceController {
 		
 		Window.frame.getContentPane().getComponent(id).setVisible(visibility);
 	}
+	
+	public static void showMessage(String msg) {
+		JOptionPane.showMessageDialog(null, msg, "Alert", JOptionPane.ERROR_MESSAGE);
+	}
 
 	public static Object showDialog(Object[] values, String msg) {
 		return JOptionPane.showInputDialog(null,

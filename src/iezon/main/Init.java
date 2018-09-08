@@ -1,5 +1,6 @@
 package iezon.main;
 
+import iezon.interfaces.options.InterfaceController;
 import iezon.updates.UpdateController;
 
 public class Init {
@@ -12,6 +13,12 @@ public class Init {
 	}
 
 	public static void main(String[] args) {
+		
+		// TODO: Add CMD execution for updates
+		if(args.length > 0 && args[0].equalsIgnoreCase("update")) {
+			InterfaceController.showDialog(new Object[] {"Ok"}, "You are updated!");
+		}
+		
 		new Init();
 	}
 
