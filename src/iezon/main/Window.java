@@ -41,13 +41,14 @@ public class Window {
 		
 		buildPanels();
 		
-		guiController.setVisible("Lock Screen", true);
+		guiController.setVisible("User Lock Screen", true);
 	}
 	
 	private void initPanels() {
 		guiController.addPanel("Loading Screen", new LoadingScreen());
 		guiController.addPanel("Home Screen", new HomeScreen());
 		guiController.addPanel("Lock Screen", new LockScreen());
+		guiController.addPanel("User Lock Screen", new UserLockScreen());
 	}
 	
 	private void buildPanels() {

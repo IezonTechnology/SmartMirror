@@ -2,10 +2,12 @@ package iezon.main;
 
 import iezon.interfaces.options.InterfaceController;
 import iezon.updates.UpdateController;
+import iezon.users.UserController;
 
 public class Init {
 	
 	private UpdateController uc = new UpdateController();
+	public static UserController usrController = new UserController();
 
 	public Init() {
 		// uc.update();
