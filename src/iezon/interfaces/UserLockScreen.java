@@ -10,6 +10,10 @@ import javax.swing.JPanel;
 import iezon.main.Init;
 import iezon.main.Window;
 import iezon.users.User;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class UserLockScreen extends JPanel {
 
@@ -18,6 +22,17 @@ public class UserLockScreen extends JPanel {
 
 	public UserLockScreen() {
 		setBounds(0, 0, 584, 462);
+		setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(70, 105, 452, 313);
+		add(panel);
+		panel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JLabel lblPleaseChooseA = new JLabel("Please choose a user...");
+		lblPleaseChooseA.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 17));
+		lblPleaseChooseA.setBounds(170, 51, 313, 43);
+		add(lblPleaseChooseA);
 		
 		for(User u : Init.usrController.getAllUsers()) {
 			userButtons.add(new JButton(u.getFname()));
@@ -29,7 +44,7 @@ public class UserLockScreen extends JPanel {
 					Window.guiController.setVisible("Lock Screen", true);
 				}
 			});
-			add(userButtons.get(userButtons.size() -1));
+			panel.add(userButtons.get(userButtons.size() -1));
 		}
 	}
 }
