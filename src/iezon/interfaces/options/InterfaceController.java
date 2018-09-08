@@ -55,6 +55,7 @@ public class InterfaceController {
 		}
 		
 		Window.frame.getContentPane().getComponent(id).setVisible(visibility);
+		Window.frame.setTitle(uniqueIdentity);
 	}
 	
 	public static void showMessage(String msg) {
