@@ -23,9 +23,10 @@ public class UserLockScreen extends JPanel {
 			userButtons.add(new JButton(u.getFname()));
 			userButtons.get(userButtons.size() - 1).addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					Init.usrController.setCurrentUser(u);
+					LockScreen.setDisplayMessage();
 					Window.guiController.setVisible("User Lock Screen", false);
 					Window.guiController.setVisible("Lock Screen", true);
-					Init.usrController.setCurrentUser(u);
 				}
 			});
 			add(userButtons.get(userButtons.size() -1));

@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import iezon.interfaces.options.InterfaceController;
 import iezon.main.Init;
 import iezon.main.Window;
-import iezon.users.User;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -127,8 +126,6 @@ public class LockScreen extends JPanel {
 		});
 		add(button_10);
 		
-		User currentUser = Init.usrController.getCurrentUser();
-		JLabel lblWelcomeBack = new JLabel("Welcome back, " + currentUser.getFname() + " " + currentUser.getLname());
 		lblWelcomeBack.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblWelcomeBack.setBounds(139, 100, 290, 52);
 		add(lblWelcomeBack);
@@ -136,7 +133,23 @@ public class LockScreen extends JPanel {
 		JLabel lblStatusLocked = new JLabel("Status: Locked");
 		lblStatusLocked.setBounds(139, 165, 89, 14);
 		add(lblStatusLocked);
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Window.guiController.setVisible("Lock Screen", false);
+				Window.guiController.setVisible("User Lock Screen", true);
+			}
+		});
+		btnBack.setBounds(241, 322, 89, 23);
+		add(btnBack);
 
+	}
+	
+	private static JLabel lblWelcomeBack = new JLabel("Welcome back, ");
+	
+	public static void setDisplayMessage() {
+		lblWelcomeBack.setText("Welcome back, " + Init.usrController.getCurrentUser().getFname() + " " + Init.usrController.getCurrentUser().getLname());
 	}
 
 }
