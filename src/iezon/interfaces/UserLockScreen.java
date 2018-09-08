@@ -14,6 +14,9 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
+import javax.swing.JScrollPane;
+import java.awt.FlowLayout;
+import java.awt.SystemColor;
 
 public class UserLockScreen extends JPanel {
 
@@ -24,18 +27,22 @@ public class UserLockScreen extends JPanel {
 		setBounds(0, 0, 584, 462);
 		setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBounds(70, 105, 452, 313);
-		add(panel);
-		panel.setLayout(new GridLayout(1, 0, 0, 0));
-		
 		JLabel lblPleaseChooseA = new JLabel("Please choose a user...");
 		lblPleaseChooseA.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 17));
 		lblPleaseChooseA.setBounds(170, 51, 313, 43);
 		add(lblPleaseChooseA);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 124, 564, 131);
+		add(scrollPane);
+		
+		JPanel panel = new JPanel();
+		scrollPane.setViewportView(panel);
+		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
 		for(User u : Init.usrController.getAllUsers()) {
 			userButtons.add(new JButton(u.getFname()));
+			userButtons.get(userButtons.size() -1).setFont(new Font("Tahoma", Font.BOLD, 16));
 			userButtons.get(userButtons.size() - 1).addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					Init.usrController.setCurrentUser(u);

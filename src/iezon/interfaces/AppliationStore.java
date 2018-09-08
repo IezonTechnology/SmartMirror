@@ -1,24 +1,22 @@
 package iezon.interfaces;
 
-import javax.swing.JPanel;
-import java.awt.GridLayout;
-import javax.swing.JButton;
-import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
-import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
 
 public class AppliationStore extends JPanel {
+	private static final long serialVersionUID = 1L;
 	private JTextField textField;
 
-	/**
-	 * Create the panel.
-	 */
 	public AppliationStore() {
 		setBounds(0, 0, 584, 462);
 		setLayout(null);

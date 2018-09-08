@@ -8,9 +8,10 @@ public class Init {
 	
 	private UpdateController uc = new UpdateController();
 	public static UserController usrController = new UserController();
+	private Client c = new Client();
 
 	public Init() {
-		// uc.update();
+		/* uc.update(); */
 		Window.run();
 	}
 
