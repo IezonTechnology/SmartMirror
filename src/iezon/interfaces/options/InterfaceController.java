@@ -1,7 +1,8 @@
-package iezon.interfaces;
+package iezon.interfaces.options;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import iezon.main.Window;
@@ -56,4 +57,12 @@ public class InterfaceController {
 		Window.frame.getContentPane().getComponent(id).setVisible(visibility);
 	}
 
+	public static Object showDialog(Object[] values, String msg) {
+		return JOptionPane.showInputDialog(null,
+			msg, "Input",
+			JOptionPane.INFORMATION_MESSAGE, null,
+			values, values[0]
+		);
+	}
+	
 }

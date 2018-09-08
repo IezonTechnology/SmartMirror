@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 
 import iezon.interfaces.*;
+import iezon.interfaces.options.Interface;
+import iezon.interfaces.options.InterfaceController;
+
 import javax.swing.JPanel;
 
 public class Window {

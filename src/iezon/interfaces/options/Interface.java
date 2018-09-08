@@ -1,4 +1,4 @@
-package iezon.interfaces;
+package iezon.interfaces.options;
 
 import javax.swing.JPanel;
 
