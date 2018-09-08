@@ -8,8 +8,6 @@ import iezon.interfaces.*;
 import iezon.interfaces.options.Interface;
 import iezon.interfaces.options.InterfaceController;
 
-import javax.swing.JPanel;
-
 public class Window {
 
 	public static JFrame frame;
@@ -41,13 +39,14 @@ public class Window {
 		
 		buildPanels();
 		
-		guiController.setVisible("Lock Screen", true);
+		guiController.setVisible("User Lock Screen", true);
 	}
 	
 	private void initPanels() {
 		guiController.addPanel("Loading Screen", new LoadingScreen());
 		guiController.addPanel("Home Screen", new HomeScreen());
 		guiController.addPanel("Lock Screen", new LockScreen());
+		guiController.addPanel("User Lock Screen", new UserLockScreen());
 		guiController.addPanel("Applicaiton Store", new AppliationStore());
 	}
 	
