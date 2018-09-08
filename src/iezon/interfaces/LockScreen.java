@@ -45,7 +45,7 @@ public class LockScreen extends JPanel {
 		button_7.setBounds(139, 322, 89, 23);
 		add(button_7);
 		
-		JButton btnGo = new JButton("UNLOCK");
+		JButton btnGo = new JButton("GO");
 		btnGo.setBounds(340, 322, 89, 23);
 		add(btnGo);
 		
