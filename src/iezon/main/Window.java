@@ -47,7 +47,7 @@ public class Window {
 		guiController.addPanel("Home Screen", new HomeScreen());
 		guiController.addPanel("Lock Screen", new LockScreen());
 		guiController.addPanel("User Lock Screen", new UserLockScreen());
-		guiController.addPanel("Applicaiton Store", new AppliationStore());
+		guiController.addPanel("Application Store", new AppliationStore());
 	}
 	
 	private void buildPanels() {
