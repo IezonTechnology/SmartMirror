@@ -87,7 +87,7 @@ public class HomeScreen extends JPanel {
 		JButton btnFind = new JButton("");
 		btnFind.setForeground(new Color(0, 0, 0));
 		btnFind.setBackground(new Color(0, 0, 0));
-		btnFind.setIcon(new ImageIcon(HomeScreen.class.getResource("/iezon/images/if_icon-111-search_314478 (1).png")));
+		btnFind.setIcon(new ImageIcon(HomeScreen.class.getResource("/iezon/images/search.png")));
 		btnFind.setBounds(534, 48, 50, 20);
 		panel_1.add(btnFind);
 		
@@ -99,21 +99,21 @@ public class HomeScreen extends JPanel {
 		JButton button = new JButton("");
 		button.setForeground(new Color(255, 255, 255));
 		button.setBackground(new Color(255, 255, 255));
-		button.setIcon(new ImageIcon(HomeScreen.class.getResource("/iezon/images/if_lock_115716 (1).png")));
+		button.setIcon(new ImageIcon(HomeScreen.class.getResource("/iezon/images/user.png")));
 		button.setBounds(518, 3, 30, 37);
 		panel_1.add(button);
 		
 		JButton btnNewButton = new JButton("");
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.setBackground(new Color(255, 255, 255));
-		btnNewButton.setIcon(new ImageIcon(HomeScreen.class.getResource("/iezon/images/if_Streamline-75_185095.png")));
+		btnNewButton.setIcon(new ImageIcon(HomeScreen.class.getResource("/iezon/images/streamline.png")));
 		btnNewButton.setBounds(482, 3, 30, 37);
 		panel_1.add(btnNewButton);
 		
 		JButton button_1 = new JButton("");
 		button_1.setForeground(new Color(255, 255, 255));
 		button_1.setBackground(new Color(255, 255, 255));
-		button_1.setIcon(new ImageIcon(HomeScreen.class.getResource("/iezon/images/if_30.User_290120.png")));
+		button_1.setIcon(new ImageIcon(HomeScreen.class.getResource("/iezon/images/lock.png")));
 		button_1.setBounds(554, 3, 30, 37);
 		panel_1.add(button_1);
 		
