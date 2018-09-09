@@ -19,7 +19,7 @@ public class Init {
 		
 		// TODO: Add CMD execution for updates
 		if(args.length > 0 && args[0].equalsIgnoreCase("update")) {
-			InterfaceController.showDialog(new Object[] {"Ok"}, "You are updated!");
+			InterfaceController.showDialog(new Object[] { "Ok" }, "You are updated!");
 		}
 		
 		new Init();

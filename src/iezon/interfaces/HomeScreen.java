@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import iezon.appstore.App;
 import iezon.interfaces.options.InterfaceController;
 import iezon.main.Init;
 import iezon.main.Window;
@@ -81,10 +82,17 @@ public class HomeScreen extends JPanel {
 							return;
 						}
 					}
-					InterfaceController.showMessage("Sorry, " + query.split(":")[0]);
+					InterfaceController.showMessage("Sorry, " + query.split(":")[0] + " does not exists.");
 					break;
 				case "apps":
-
+					for (App a : AppliationStore.asc.getAllApps()) {
+						if (a.getName().equalsIgnoreCase(query.split(":")[0])) {
+							InterfaceController.showDialog(new Object[] {a.getName() + " £" +
+									a.getCost(), a.getDetails()}, "You found this app!");
+							return;
+						}
+					}
+					InterfaceController.showMessage("Sorry, " + query.split(":")[0] + " does not exists.");
 					break;
 				default:
 					InterfaceController.showMessage("Please insert a query with a type :users or :apps");
