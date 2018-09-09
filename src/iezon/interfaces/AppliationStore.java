@@ -164,8 +164,6 @@ for (App a : asc.getAllApps()) {
 						gbc.gridx = x;
 						gbc.gridy = y;
 						
-						// System.out.println("X is " + x + ", Y is " + y);
-						
 						panel_1.add(p, gbc);
 						
 						x = x + 2;
