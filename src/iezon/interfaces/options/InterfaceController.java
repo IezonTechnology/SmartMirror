@@ -15,6 +15,35 @@ public class InterfaceController {
 	
 	public void addPanel(String uniqueIdentity, JPanel uniqueJPanel) {
 		panels.add(new Interface(getNextId(), uniqueIdentity, uniqueJPanel));
+		Window.frame.getContentPane().add(panels.get(panels.size() -1).getPanel());
+	}
+	
+	public void removePanel(String uniqueIdentity) {
+		for(Interface i : panels) {
+			if(i.getIdentity().equalsIgnoreCase(uniqueIdentity)) {
+				this.setVisible(uniqueIdentity, false);
+				Window.frame.getContentPane().remove(i.getId());
+				updateIds();
+				panels.remove(i);
+			}
+		}
+	}
+	
+	private void updateIds() {
+		for(Interface i : panels) {
+			i.setId(i.getId() - 1);
+		}
+	}
+	
+	public void removePanel(int id) {
+		for(Interface i : panels) {
+			if(i.getId() == id) {
+				this.setVisible(i.getIdentity(), false);
+				Window.frame.getContentPane().remove(i.getId());
+				updateIds();
+				panels.remove(i);
+			}
+		}
 	}
 	
 	public Interface getInterfaceById(int id) {

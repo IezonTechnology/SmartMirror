@@ -11,6 +11,7 @@ import iezon.main.Init;
 import iezon.main.Window;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JProgressBar;
 
 public class LockScreen extends JPanel {
 
@@ -36,6 +37,10 @@ public class LockScreen extends JPanel {
 		label.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 30));
 		label.setBounds(139, 383, 290, 32);
 		add(label);
+		
+		JProgressBar progressBar = new JProgressBar();
+		progressBar.setBounds(139, 420, 290, 14);
+		add(progressBar);
 
 		JButton button = new JButton("1");
 		button.addActionListener(new ActionListener() {
@@ -122,10 +127,12 @@ public class LockScreen extends JPanel {
 		btnGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Init.usrController.getCurrentUser().checkLogin(Integer.parseInt(code))) {
-					Window.guiController.setVisible("Lock Screen", false);
-					Window.guiController.setVisible("Home Screen", true);
+					/* progressBar.setMaximum(100);
+					progressBar.setValue(100); */
+					Window.guiController.addPanel("Home Screen", new HomeScreen());
+					Window.guiController.removePanel("Lock Screen");
 				} else {
-					InterfaceController.showMessage("Incorrect passcode combination.");
+					InterfaceController.showMessage("Incorrect passcode combination...");
 					code = "";
 					label.setText("");
 				}
@@ -164,8 +171,8 @@ public class LockScreen extends JPanel {
 		JButton btnBack = new JButton("Back");
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Window.guiController.setVisible("Lock Screen", false);
-				Window.guiController.setVisible("User Lock Screen", true);
+				Window.guiController.addPanel("User Lock Screen", new UserLockScreen());
+				Window.guiController.removePanel("Lock Screen");
 			}
 		});
 		btnBack.setBounds(241, 322, 89, 23);
@@ -179,5 +186,4 @@ public class LockScreen extends JPanel {
 		lblWelcomeBack.setText("Welcome back, " + Init.usrController.getCurrentUser().getFname() + " "
 				+ Init.usrController.getCurrentUser().getLname());
 	}
-
 }

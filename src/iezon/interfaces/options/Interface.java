@@ -13,6 +13,10 @@ public class Interface {
 		identity = uniqueIdentity;
 		panel = uniqueJPanel;
 	}
+	
+	public void setId(int newID) {
+		id = newID;
+	}
 
 	public int getId() {
 		return id;

@@ -23,8 +23,8 @@ public class HomeScreen extends JPanel {
 		JButton btnAppStore = new JButton("App Store");
 		btnAppStore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Window.guiController.setVisible("Home Screen", false);
-				Window.guiController.setVisible("Application Store", true);
+				Window.guiController.addPanel("Application Store", new AppliationStore());
+				Window.guiController.removePanel("Home Screen");
 			}
 		});
 		btnAppStore.setBounds(207, 127, 89, 23);

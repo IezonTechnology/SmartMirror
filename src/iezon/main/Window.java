@@ -1,10 +1,11 @@
 package iezon.main;
 
 import java.awt.EventQueue;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import iezon.interfaces.*;
+import iezon.interfaces.UserLockScreen;
 import iezon.interfaces.options.Interface;
 import iezon.interfaces.options.InterfaceController;
 
@@ -27,8 +28,8 @@ public class Window {
 	}
 
 	public Window() {
-		initPanels();
 		initialize();
+		initPanels();
 	}
 
 	private void initialize() {
@@ -36,24 +37,9 @@ public class Window {
 		frame.setBounds(100, 100, 600, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		buildPanels();
-		
-		guiController.setVisible("User Lock Screen", true);
 	}
 	
 	private void initPanels() {
-		guiController.addPanel("Loading Screen", new LoadingScreen());
-		guiController.addPanel("Home Screen", new HomeScreen());
-		guiController.addPanel("Lock Screen", new LockScreen());
 		guiController.addPanel("User Lock Screen", new UserLockScreen());
-		guiController.addPanel("Application Store", new AppliationStore());
-	}
-	
-	private void buildPanels() {
-		for(Interface gui : guiController.getAllInterfaces()) {
-			frame.getContentPane().add(gui.getPanel());
-			guiController.setVisible(gui.getIdentity(), false);
-		}
 	}
 }
