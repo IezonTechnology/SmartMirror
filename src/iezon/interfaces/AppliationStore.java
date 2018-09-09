@@ -15,61 +15,59 @@ import javax.swing.JTextField;
 
 import iezon.appstore.App;
 import iezon.appstore.AppStoreController;
+import iezon.main.Init;
+
 import javax.swing.JScrollPane;
 import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.ImageIcon;
 
 public class AppliationStore extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
-	private AppStoreController asc = new AppStoreController();
+	public static AppStoreController asc = new AppStoreController();
 
 	public AppliationStore() {
 		
 		setBounds(0, 0, 584, 462);
 		setLayout(null);
 		
+		JPanel panel_3 = new HeaderPanel();
+		add(panel_3);
+		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 584, 462);
+		panel.setBackground(new Color(0, 191, 255));
+		panel.setBounds(0, 70, 584, 392);
 		add(panel);
 		panel.setLayout(null);
 		
-		textField = new JTextField();
-		textField.setBounds(231, 53, 180, 20);
-		panel.add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblSearchTheStore = new JLabel("Search the Store:");
-		lblSearchTheStore.setBounds(112, 56, 92, 14);
-		panel.add(lblSearchTheStore);
-		
-		JLabel lblStore = new JLabel("Store");
-		lblStore.setBounds(269, 11, 50, 20);
-		panel.add(lblStore);
-		
-		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 53, 463, -15);
-		panel.add(separator);
-		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(10, 36, 574, 2);
-		panel.add(separator_1);
-		
 		JSeparator separator_2 = new JSeparator();
-		separator_2.setBounds(-143, 97, 727, 2);
+		separator_2.setBounds(0, 42, 584, 2);
 		panel.add(separator_2);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(64, 224, 474, 214);
-		panel.add(scrollPane);
-		
 		JPanel panel_1 = new JPanel();
-		scrollPane.setViewportView(panel_1);
+		panel_1.setBackground(Color.BLACK);
+		panel_1.setBounds(66, 86, 472, 272);
+		panel.add(panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{0, 0, 0, 0, 0};
+		gbl_panel_1.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gbl_panel_1.rowHeights = new int[]{0, 0, 0};
-		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane.gridx = 13;
+		gbc_scrollPane.gridy = 0;
+		panel_1.add(scrollPane, gbc_scrollPane);
+		
+		JLabel lblStore = new JLabel("Store");
+		lblStore.setBounds(240, 11, 83, 33);
+		panel.add(lblStore);
+		lblStore.setForeground(Color.WHITE);
+		lblStore.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 18));
 		
 		/** arraylist loops applications into the Jpanel **/
 		
@@ -80,9 +78,12 @@ public class AppliationStore extends JPanel {
 for (App a : asc.getAllApps()) {
 			
 			JPanel p = new JPanel();
+			p.setBackground(Color.BLACK);
 			p.setLayout(gbl_panel_1);
 			
 			JButton btn = new JButton(a.getName());
+			btn.setBackground(new Color(0, 191, 255));
+			btn.setForeground(Color.BLACK);
 			
 			btn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -98,11 +99,15 @@ for (App a : asc.getAllApps()) {
 			
 			gbc_p.gridx = 1;
 			gbc_p.gridy = 3;
-			p.add(new JLabel("£" + a.getCost()), gbc_p);
+			JLabel cost = new JLabel("£" + a.getCost());
+			cost.setForeground(new Color(0, 191, 255));
+			p.add(cost, gbc_p);
 			
 			gbc_p.gridx = 1;
 			gbc_p.gridy = 5;
-			p.add(new JLabel("Details here"), gbc_p);
+			JLabel details = new JLabel("Details here");
+			details.setForeground(new Color(0, 191, 255));
+			p.add(details, gbc_p);
 			
 			GridBagConstraints gbc = new GridBagConstraints();
 			gbc.gridx = x;
@@ -112,110 +117,13 @@ for (App a : asc.getAllApps()) {
 			
 			panel_1.add(p, gbc);
 			
-			x = x + 2;
+			x = x + 3;
 			if(count++ >= 3) {
 				count = 0;
 				y = y + 1;
 				x = 1;
 			}
 		}
-		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(64, 110, 474, 102);
-		panel.add(panel_2);
-		
-		JButton btnSearch = new JButton("Search");
-		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (textField.getText().isEmpty()) {
-					panel_1.removeAll();
-					
-					int x = 1;
-					int y = 1;
-					int count = 0;
-					for (App a : asc.getAllApps()) {
-						
-						JPanel p = new JPanel();
-						p.setLayout(gbl_panel_1);
-						
-						JButton btn = new JButton(a.getName());
-						
-						btn.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								btn.setText("Installed");
-							}
-						});
-						
-						GridBagConstraints gbc_p = new GridBagConstraints();
-						gbc_p.gridx = 1;
-						gbc_p.gridy = 1;
-						
-						p.add(btn, gbc_p);
-						
-						gbc_p.gridx = 1;
-						gbc_p.gridy = 3;
-						p.add(new JLabel("£" + a.getCost()), gbc_p);
-						
-						gbc_p.gridx = 1;
-						gbc_p.gridy = 5;
-						p.add(new JLabel("Details here"), gbc_p);
-						
-						GridBagConstraints gbc = new GridBagConstraints();
-						gbc.gridx = x;
-						gbc.gridy = y;
-						
-						panel_1.add(p, gbc);
-						
-						x = x + 2;
-						if(count++ >= 3) {
-							count = 0;
-							y = y + 1;
-							x = 1;
-						}
-					}
-				}
-				//TODO:: else search for values
-				for(App a : asc.getAllApps()) {
-					if(a.getName().equalsIgnoreCase(textField.getText())) {
-						
-						panel_1.removeAll();
-						
-						GridBagConstraints gbc = new GridBagConstraints();
-						gbc.gridx = 1;
-						gbc.gridy = 1;
-						
-						JPanel p = new JPanel();
-						p.setLayout(gbl_panel_1);
-						
-						JButton btn = new JButton(a.getName());
-						
-						btn.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-								btn.setText("Installed");
-							}
-						});
-						
-						GridBagConstraints gbc_p = new GridBagConstraints();
-						gbc_p.gridx = 1;
-						gbc_p.gridy = 1;
-						
-						p.add(btn, gbc_p);
-						
-						gbc_p.gridx = 1;
-						gbc_p.gridy = 3;
-						p.add(new JLabel("£" + a.getCost()), gbc_p);
-						
-						gbc_p.gridx = 1;
-						gbc_p.gridy = 5;
-						p.add(new JLabel("Details here"), gbc_p);
-						
-						panel_1.add(p, gbc);
-					}
-				}
-			}
-		});
-		btnSearch.setBounds(421, 52, 89, 23);
-		panel.add(btnSearch);
 		
 
 	}
