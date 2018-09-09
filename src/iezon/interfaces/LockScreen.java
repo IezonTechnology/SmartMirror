@@ -124,11 +124,10 @@ public class LockScreen extends JPanel {
 
 		JButton btnGo = new JButton("GO");
 		btnGo.setBounds(340, 322, 89, 23);
+		
 		btnGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Init.usrController.getCurrentUser().checkLogin(Integer.parseInt(code))) {
-					/* progressBar.setMaximum(100);
-					progressBar.setValue(100); */
 					Window.guiController.addPanel("Home Screen", new HomeScreen());
 					Window.guiController.removePanel("Lock Screen");
 				} else {
@@ -138,6 +137,7 @@ public class LockScreen extends JPanel {
 				}
 			}
 		});
+		
 		add(btnGo);
 
 		JButton button_9 = new JButton("9");
