@@ -18,7 +18,6 @@ import javax.swing.ImageIcon;
 public class HomeScreen extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	private JTextField textField;
 
 	public HomeScreen() {
 		setBounds(0, 0, 584, 462);
@@ -61,61 +60,8 @@ public class HomeScreen extends JPanel {
 			}
 		});
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(new Color(0, 0, 0));
-		panel_1.setBounds(0, 0, 584, 70);
+		JPanel panel_1 = new HeaderPanel();
 		add(panel_1);
-		panel_1.setLayout(null);
-		
-		textField = new JTextField();
-		textField.setBounds(405, 48, 128, 20);
-		panel_1.add(textField);
-		textField.setColumns(10);
-		
-		JLabel lblSearch = new JLabel("Search");
-		lblSearch.setFont(new Font("Tahoma", Font.ITALIC, 11));
-		lblSearch.setForeground(new Color(255, 255, 255));
-		lblSearch.setBounds(360, 51, 46, 14);
-		panel_1.add(lblSearch);
-		
-		JLabel welcomeLbl = new JLabel("Welcome back, " + Init.usrController.getCurrentUser().getFname());
-		welcomeLbl.setForeground(new Color(255, 255, 255));
-		welcomeLbl.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
-		welcomeLbl.setBounds(10, 0, 285, 48);
-		panel_1.add(welcomeLbl);
-		
-		JButton btnFind = new JButton("");
-		btnFind.setForeground(new Color(0, 0, 0));
-		btnFind.setBackground(new Color(0, 0, 0));
-		btnFind.setIcon(new ImageIcon(HomeScreen.class.getResource("/iezon/images/search.png")));
-		btnFind.setBounds(534, 48, 50, 20);
-		panel_1.add(btnFind);
-		
-		JLabel timeLbl = new JLabel(new Date().toString());
-		timeLbl.setForeground(new Color(255, 255, 255));
-		timeLbl.setBounds(10, 34, 241, 14);
-		panel_1.add(timeLbl);
-		
-		JButton button = new JButton("");
-		button.setForeground(new Color(255, 255, 255));
-		button.setBackground(new Color(255, 255, 255));
-		button.setIcon(new ImageIcon(HomeScreen.class.getResource("/iezon/images/user.png")));
-		button.setBounds(518, 3, 30, 37);
-		panel_1.add(button);
-		
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBackground(new Color(255, 255, 255));
-		btnNewButton.setIcon(new ImageIcon(HomeScreen.class.getResource("/iezon/images/streamline.png")));
-		btnNewButton.setBounds(482, 3, 30, 37);
-		panel_1.add(btnNewButton);
-		
-		JButton button_1 = new JButton("");
-		button_1.setForeground(new Color(255, 255, 255));
-		button_1.setBackground(new Color(255, 255, 255));
-		button_1.setIcon(new ImageIcon(HomeScreen.class.getResource("/iezon/images/lock.png")));
-		button_1.setBounds(554, 3, 30, 37);
-		panel_1.add(button_1);
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBackground(new Color(0, 191, 255));
