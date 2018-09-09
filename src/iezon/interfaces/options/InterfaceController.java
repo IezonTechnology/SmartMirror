@@ -16,6 +16,7 @@ public class InterfaceController {
 	public void addPanel(String uniqueIdentity, JPanel uniqueJPanel) {
 		panels.add(new Interface(getNextId(), uniqueIdentity, uniqueJPanel));
 		Window.frame.getContentPane().add(panels.get(panels.size() -1).getPanel());
+		Window.frame.setTitle(uniqueIdentity);
 	}
 	
 	public void removePanel(String uniqueIdentity) {
