@@ -14,7 +14,8 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
 public class HeaderPanel extends JPanel {
-	private JTextField textField;
+	public static JTextField textField = new JTextField();
+	public static JButton button = new JButton("");
 
 	public HeaderPanel() {
 
@@ -22,7 +23,6 @@ public class HeaderPanel extends JPanel {
 		setLayout(null);
 		setBackground(Color.BLACK);;
 		
-		textField = new JTextField();
 		textField.setColumns(10);
 		textField.setBounds(405, 48, 128, 20);
 		add(textField);
@@ -39,7 +39,6 @@ public class HeaderPanel extends JPanel {
 		label_1.setBounds(10, 0, 285, 48);
 		add(label_1);
 		
-		JButton button = new JButton("");
 		button.setIcon(new ImageIcon(HeaderPanel.class.getResource("/iezon/images/search.png")));
 		button.setForeground(Color.BLACK);
 		button.setBackground(Color.BLACK);
