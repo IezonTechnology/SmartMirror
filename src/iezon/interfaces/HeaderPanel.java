@@ -8,13 +8,16 @@ import iezon.main.Init;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 
 public class HeaderPanel extends JPanel {
-	public static JTextField textField = new JTextField();
+	
+	public static JTextField txtappsusers = new JTextField();
 	public static JButton button = new JButton("");
 
 	public HeaderPanel() {
@@ -22,10 +25,24 @@ public class HeaderPanel extends JPanel {
 		setBounds(0, 0, 584, 70);
 		setLayout(null);
 		setBackground(Color.BLACK);;
+		txtappsusers.setText("example:apps/:users");
+		txtappsusers.addFocusListener(new FocusListener() {
+
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				txtappsusers.setText("");
+			}
+
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				return;
+			}
+			
+		});
 		
-		textField.setColumns(10);
-		textField.setBounds(405, 48, 128, 20);
-		add(textField);
+		txtappsusers.setColumns(10);
+		txtappsusers.setBounds(405, 48, 128, 20);
+		add(txtappsusers);
 		
 		JLabel label = new JLabel("Search");
 		label.setForeground(Color.WHITE);
