@@ -13,11 +13,18 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 
+import iezon.appstore.App;
+import iezon.appstore.AppStoreController;
+import javax.swing.JScrollPane;
+import java.awt.FlowLayout;
+
 public class AppliationStore extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField textField;
+	private AppStoreController asc = new AppStoreController();
 
 	public AppliationStore() {
+		
 		setBounds(0, 0, 584, 462);
 		setLayout(null);
 		
@@ -51,158 +58,67 @@ public class AppliationStore extends JPanel {
 		separator_2.setBounds(-143, 97, 727, 2);
 		panel.add(separator_2);
 		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(64, 224, 474, 214);
+		panel.add(scrollPane);
+		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(64, 224, 474, 238);
-		panel.add(panel_1);
+		scrollPane.setViewportView(panel_1);
 		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel_1.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_1.columnWidths = new int[]{0, 0, 0, 0, 0};
+		gbl_panel_1.rowHeights = new int[]{0, 0, 0};
+		gbl_panel_1.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel_1.setLayout(gbl_panel_1);
 		
-		JButton btnAppA = new JButton("APP A");
-		btnAppA.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "You Have Successfully installed " + btnAppA);
-			}
-		});
-		GridBagConstraints gbc_btnAppA = new GridBagConstraints();
-		gbc_btnAppA.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAppA.gridx = 1;
-		gbc_btnAppA.gridy = 1;
-		panel_1.add(btnAppA, gbc_btnAppA);
+		/** arraylist loops applications into the Jpanel **/
 		
-		JButton btnAppB = new JButton("APP B");
-		btnAppB.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "You Have Successfully installed " + btnAppB);
-			}
-		});
-		GridBagConstraints gbc_btnAppB = new GridBagConstraints();
-		gbc_btnAppB.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAppB.gridx = 6;
-		gbc_btnAppB.gridy = 1;
-		panel_1.add(btnAppB, gbc_btnAppB);
+		int x = 1;
+		int y = 1;
+		int count = 0;
 		
-		JButton btnAppC = new JButton("APP C");
-		btnAppC.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "You Have Successfully installed " + btnAppC);
+for (App a : asc.getAllApps()) {
+			
+			JPanel p = new JPanel();
+			p.setLayout(gbl_panel_1);
+			
+			JButton btn = new JButton(a.getName());
+			
+			btn.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					btn.setText("Installed");
+				}
+			});
+			
+			GridBagConstraints gbc_p = new GridBagConstraints();
+			gbc_p.gridx = 1;
+			gbc_p.gridy = 1;
+			
+			p.add(btn, gbc_p);
+			
+			gbc_p.gridx = 1;
+			gbc_p.gridy = 3;
+			p.add(new JLabel("£" + a.getCost()), gbc_p);
+			
+			gbc_p.gridx = 1;
+			gbc_p.gridy = 5;
+			p.add(new JLabel("Details here"), gbc_p);
+			
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.gridx = x;
+			gbc.gridy = y;
+			
+			// System.out.println("X is " + x + ", Y is " + y);
+			
+			panel_1.add(p, gbc);
+			
+			x = x + 2;
+			if(count++ >= 3) {
+				count = 0;
+				y = y + 1;
+				x = 1;
 			}
-		});
-		GridBagConstraints gbc_btnAppC = new GridBagConstraints();
-		gbc_btnAppC.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAppC.gridx = 11;
-		gbc_btnAppC.gridy = 1;
-		panel_1.add(btnAppC, gbc_btnAppC);
-		
-		JButton btnAppD = new JButton("APP D");
-		btnAppD.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "You Have Successfully installed " + btnAppD);
-			}
-		});
-		GridBagConstraints gbc_btnAppD = new GridBagConstraints();
-		gbc_btnAppD.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAppD.gridx = 1;
-		gbc_btnAppD.gridy = 3;
-		panel_1.add(btnAppD, gbc_btnAppD);
-		
-		JButton btnAppE = new JButton("APP E");
-		btnAppE.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "You Have Successfully installed " + btnAppE);
-			}
-		});
-		GridBagConstraints gbc_btnAppE = new GridBagConstraints();
-		gbc_btnAppE.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAppE.gridx = 6;
-		gbc_btnAppE.gridy = 3;
-		panel_1.add(btnAppE, gbc_btnAppE);
-		
-		JButton btnAppF = new JButton("APP F");
-		btnAppF.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "You Have Successfully installed " + btnAppF);
-			}
-		});
-		GridBagConstraints gbc_btnAppF = new GridBagConstraints();
-		gbc_btnAppF.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAppF.gridx = 11;
-		gbc_btnAppF.gridy = 3;
-		panel_1.add(btnAppF, gbc_btnAppF);
-		
-		JButton btnAppG = new JButton("APP G");
-		btnAppG.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "You Have Successfully installed " + btnAppG);
-			}
-		});
-		GridBagConstraints gbc_btnAppG = new GridBagConstraints();
-		gbc_btnAppG.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAppG.gridx = 1;
-		gbc_btnAppG.gridy = 5;
-		panel_1.add(btnAppG, gbc_btnAppG);
-		
-		JButton btnAppH = new JButton("APP H");
-		btnAppH.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "You Have Successfully installed " + btnAppH);
-			}
-		});
-		GridBagConstraints gbc_btnAppH = new GridBagConstraints();
-		gbc_btnAppH.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAppH.gridx = 6;
-		gbc_btnAppH.gridy = 5;
-		panel_1.add(btnAppH, gbc_btnAppH);
-		
-		JButton btnAppI = new JButton("APP I");
-		btnAppI.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "You Have Successfully installed " + btnAppI);
-			}
-		});
-		GridBagConstraints gbc_btnAppI = new GridBagConstraints();
-		gbc_btnAppI.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAppI.gridx = 11;
-		gbc_btnAppI.gridy = 5;
-		panel_1.add(btnAppI, gbc_btnAppI);
-		
-		JButton btnAppJ = new JButton("APP J");
-		btnAppJ.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "You Have Successfully installed " + btnAppJ);
-			}
-		});
-		GridBagConstraints gbc_btnAppJ = new GridBagConstraints();
-		gbc_btnAppJ.insets = new Insets(0, 0, 0, 5);
-		gbc_btnAppJ.gridx = 1;
-		gbc_btnAppJ.gridy = 7;
-		panel_1.add(btnAppJ, gbc_btnAppJ);
-		
-		JButton btnAppK = new JButton("APP K");
-		btnAppK.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "You Have Successfully installed " + btnAppK);
-			}
-		});
-		GridBagConstraints gbc_btnAppK = new GridBagConstraints();
-		gbc_btnAppK.insets = new Insets(0, 0, 0, 5);
-		gbc_btnAppK.gridx = 6;
-		gbc_btnAppK.gridy = 7;
-		panel_1.add(btnAppK, gbc_btnAppK);
-		
-		JButton btnAppL = new JButton("APP L");
-		btnAppL.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "You Have Successfully installed " + btnAppL);
-			}
-		});
-		GridBagConstraints gbc_btnAppL = new GridBagConstraints();
-		gbc_btnAppL.gridx = 11;
-		gbc_btnAppL.gridy = 7;
-		panel_1.add(btnAppL, gbc_btnAppL);
+		}
 		
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(64, 110, 474, 102);
@@ -211,11 +127,91 @@ public class AppliationStore extends JPanel {
 		JButton btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (textField == null) {
-					JOptionPane.showMessageDialog(null, "Search box empty, please enter the name of an applicaiton." );
+				if (textField.getText().isEmpty()) {
+					panel_1.removeAll();
+					
+					int x = 1;
+					int y = 1;
+					int count = 0;
+					for (App a : asc.getAllApps()) {
+						
+						JPanel p = new JPanel();
+						p.setLayout(gbl_panel_1);
+						
+						JButton btn = new JButton(a.getName());
+						
+						btn.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								btn.setText("Installed");
+							}
+						});
+						
+						GridBagConstraints gbc_p = new GridBagConstraints();
+						gbc_p.gridx = 1;
+						gbc_p.gridy = 1;
+						
+						p.add(btn, gbc_p);
+						
+						gbc_p.gridx = 1;
+						gbc_p.gridy = 3;
+						p.add(new JLabel("£" + a.getCost()), gbc_p);
+						
+						gbc_p.gridx = 1;
+						gbc_p.gridy = 5;
+						p.add(new JLabel("Details here"), gbc_p);
+						
+						GridBagConstraints gbc = new GridBagConstraints();
+						gbc.gridx = x;
+						gbc.gridy = y;
+						
+						panel_1.add(p, gbc);
+						
+						x = x + 2;
+						if(count++ >= 3) {
+							count = 0;
+							y = y + 1;
+							x = 1;
+						}
+					}
 				}
 				//TODO:: else search for values
-				
+				for(App a : asc.getAllApps()) {
+					if(a.getName().equalsIgnoreCase(textField.getText())) {
+						
+						panel_1.removeAll();
+						
+						GridBagConstraints gbc = new GridBagConstraints();
+						gbc.gridx = 1;
+						gbc.gridy = 1;
+						
+						JPanel p = new JPanel();
+						p.setLayout(gbl_panel_1);
+						
+						JButton btn = new JButton(a.getName());
+						
+						btn.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								btn.setText("Installed");
+							}
+						});
+						
+						GridBagConstraints gbc_p = new GridBagConstraints();
+						gbc_p.gridx = 1;
+						gbc_p.gridy = 1;
+						
+						p.add(btn, gbc_p);
+						
+						gbc_p.gridx = 1;
+						gbc_p.gridy = 3;
+						p.add(new JLabel("£" + a.getCost()), gbc_p);
+						
+						gbc_p.gridx = 1;
+						gbc_p.gridy = 5;
+						p.add(new JLabel("Details here"), gbc_p);
+						
+						panel_1.add(p, gbc);
+					}
+				}
 			}
 		});
 		btnSearch.setBounds(421, 52, 89, 23);
