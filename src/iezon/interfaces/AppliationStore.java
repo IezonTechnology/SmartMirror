@@ -21,6 +21,8 @@ import javax.swing.JScrollPane;
 import java.awt.FlowLayout;
 import java.awt.Color;
 import java.awt.Font;
+
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 
 public class AppliationStore extends JPanel {
@@ -82,12 +84,25 @@ for (App a : asc.getAllApps()) {
 			p.setLayout(gbl_panel_1);
 			
 			JButton btn = new JButton(a.getName());
+			if(a.isInstalled())
+				btn.setIcon(new ImageIcon(HeaderPanel.class.getResource("/iezon/images/streamline.png")));
 			btn.setBackground(new Color(0, 191, 255));
 			btn.setForeground(Color.BLACK);
 			
 			btn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					btn.setText("Installed");
+					for(App ap : asc.getAllApps()) {
+						if(btn.getText().equalsIgnoreCase(ap.getName())) {
+							if(!ap.isInstalled()) {
+								ap.install();
+								btn.setIcon(new ImageIcon(HeaderPanel.class.getResource("/iezon/images/streamline.png")));
+							} else {
+								ap.uninstall();
+								btn.setIcon(null);
+								btn.setText(ap.getName());
+							}
+						}
+					}
 				}
 			});
 			

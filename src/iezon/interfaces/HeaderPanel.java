@@ -4,7 +4,9 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JTextField;
 
+import iezon.interfaces.options.Interface;
 import iezon.main.Init;
+import iezon.main.Window;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -14,6 +16,8 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class HeaderPanel extends JPanel {
 	
@@ -78,7 +82,7 @@ public class HeaderPanel extends JPanel {
 		button_2.setIcon(new ImageIcon(HeaderPanel.class.getResource("/iezon/images/user.png")));
 		button_2.setForeground(Color.WHITE);
 		button_2.setBackground(Color.WHITE);
-		button_2.setBounds(482, 3, 30, 37);
+		button_2.setBounds(478, 3, 30, 37);
 		add(button_2);
 		
 		JButton button_3 = new JButton("");
@@ -87,6 +91,18 @@ public class HeaderPanel extends JPanel {
 		button_3.setBackground(Color.WHITE);
 		button_3.setBounds(554, 3, 30, 37);
 		add(button_3);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Window.guiController.addPanel("Home Screen", new HomeScreen());
+				for(Interface i : Window.guiController.getAllInterfaces()) {
+					Window.guiController.removePanel(i.getIdentity());
+				}
+			}
+		});
+		btnNewButton.setBounds(438, 3, 30, 37);
+		add(btnNewButton);
 
 	}
 

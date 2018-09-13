@@ -1,11 +1,22 @@
 package iezon.interfaces;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import iezon.appstore.App;
 import iezon.interfaces.options.InterfaceController;
@@ -106,12 +117,75 @@ public class HomeScreen extends JPanel {
 		panel_2.setBounds(149, 70, 435, 392);
 		add(panel_2);
 		panel_2.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(27, 11, 178, 153);
+		panel_2.add(scrollPane);
 
 		JPanel panel_4 = new JPanel();
+		scrollPane.setViewportView(panel_4);
 		panel_4.setBackground(new Color(0, 0, 0));
-		panel_4.setBounds(27, 11, 178, 153);
-		panel_2.add(panel_4);
-		panel_4.setLayout(null);
+		GridBagLayout gbl_panel_4 = new GridBagLayout();
+		gbl_panel_4.columnWidths = new int[]{59, 53, 1, 0};
+		gbl_panel_4.rowHeights = new int[]{15, 0, 0, 0};
+		gbl_panel_4.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_4.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel_4.setLayout(gbl_panel_4);
+		// list.setBounds(173, 149, -169, -115);
+		
+		DefaultListModel<String> DLM = new DefaultListModel<String>();
+		for(App app : AppliationStore.asc.getAllApps()) {
+			if(app.isInstalled())
+				DLM.addElement(app.getName());
+		}
+		if(DLM.getSize() == 0)
+			DLM.addElement("No apps installed");
+		// panel_4.setLayout(null);
+		
+		JLabel lblMyApps = new JLabel("My Apps");
+		lblMyApps.setBounds(59, 5, 53, 15);
+		lblMyApps.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblMyApps.setForeground(new Color(255, 255, 255));
+		//lblMyApps.setBounds(58, 0, 91, 28);
+		GridBagConstraints gbc_lblMyApps = new GridBagConstraints();
+		gbc_lblMyApps.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lblMyApps.insets = new Insets(0, 0, 5, 5);
+		gbc_lblMyApps.gridx = 0;
+		gbc_lblMyApps.gridy = 0;
+		panel_4.add(lblMyApps, gbc_lblMyApps);
+		
+		ListSelectionListener listSelectionListener = new ListSelectionListener() {
+		      @SuppressWarnings("deprecation")
+			public void valueChanged(ListSelectionEvent listSelectionEvent) {
+		    	  if (!listSelectionEvent.getValueIsAdjusting()) {
+		    		  JList<?> list = (JList<?>) listSelectionEvent.getSource();
+		    		  for(Object value : list.getSelectedValues()) {
+		    			  if(value.toString().equalsIgnoreCase("No apps installed"))
+		    				 continue;
+		    			  for(App allApps : AppliationStore.asc.getAllApps()) {
+		    				  if(allApps.getName().equalsIgnoreCase(value.toString())) {
+		    					  allApps.launch();
+		    				  }
+		    			  }
+		    		  }
+		    	  }
+		      }
+		};
+		
+		JList<String> list = new JList<String>();
+		list.setBounds(91, 45, 0, 0);
+		list.setBackground(new Color(0, 0, 0));
+		list.setForeground(new Color(255, 255, 255));
+		list.addListSelectionListener(listSelectionListener);
+		
+		GridBagConstraints gbc_list = new GridBagConstraints();
+		gbc_list.insets = new Insets(0, 0, 5, 5);
+		gbc_list.anchor = GridBagConstraints.WEST;
+		gbc_list.gridx = 0;
+		gbc_list.gridy = 1;
+		panel_4.add(list, gbc_list);
+		list.setModel(DLM);
 
 		JPanel panel_3 = new JPanel();
 		panel_3.setLayout(null);
