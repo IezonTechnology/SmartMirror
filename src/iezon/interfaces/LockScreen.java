@@ -6,10 +6,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import iezon.appstore.AppStoreController;
 import iezon.interfaces.options.InterfaceController;
 import iezon.main.Init;
 import iezon.main.Window;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 import java.awt.event.ActionEvent;
 import javax.swing.JProgressBar;
 
@@ -128,6 +130,12 @@ public class LockScreen extends JPanel {
 		btnGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Init.usrController.getCurrentUser().checkLogin(Integer.parseInt(code))) {
+					try {
+						AppliationStore.asc = new AppStoreController();
+					} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					Window.guiController.addPanel("Home Screen", new HomeScreen());
 					Window.guiController.removePanel("Lock Screen");
 				} else {

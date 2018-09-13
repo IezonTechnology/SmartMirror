@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -27,7 +28,7 @@ import javax.swing.ImageIcon;
 
 public class AppliationStore extends JPanel {
 	private static final long serialVersionUID = 1L;
-	public static AppStoreController asc = new AppStoreController();
+	public static AppStoreController asc;
 
 	public AppliationStore() {
 		
@@ -94,12 +95,16 @@ for (App a : asc.getAllApps()) {
 					for(App ap : asc.getAllApps()) {
 						if(btn.getText().equalsIgnoreCase(ap.getName())) {
 							if(!ap.isInstalled()) {
-								ap.install();
-								btn.setIcon(new ImageIcon(HeaderPanel.class.getResource("/iezon/images/streamline.png")));
+								if(ap.install()) {
+									btn.setIcon(new ImageIcon(HeaderPanel.class.getResource("/iezon/images/streamline.png")));
+									return;
+								}
 							} else {
-								ap.uninstall();
-								btn.setIcon(null);
-								btn.setText(ap.getName());
+								if(ap.uninstall()) {
+									btn.setIcon(null);
+									btn.setText(ap.getName());
+									return;
+								}
 							}
 						}
 					}

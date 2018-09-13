@@ -165,7 +165,7 @@ public class HomeScreen extends JPanel {
 		    				 continue;
 		    			  for(App allApps : AppliationStore.asc.getAllApps()) {
 		    				  if(allApps.getName().equalsIgnoreCase(value.toString())) {
-		    					  allApps.launch();
+		    					  allApps.launchApp();
 		    				  }
 		    			  }
 		    		  }
