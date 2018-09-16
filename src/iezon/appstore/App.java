@@ -1,4 +1,10 @@
 package iezon.appstore;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.security.AccessControlException;
+
 import javax.swing.JPanel;
 
 import iezon.interfaces.HeaderPanel;
@@ -8,126 +14,116 @@ import iezon.main.Window;
 
 public class App {
 	
-	public String Name;
-	public String Details;
-	public double Cost;
-	public boolean Installed = false;
-	private JPanel panel;
+	private String 		name;
+	private double 		cost;
+	private String 		description;
+	private String 		author;
+	private Class<?> 	object;
+	private URL			download;
+	private boolean		installStatus = false;
+	private int			id;
 	
-
-	public App(String Name, String Details, double Cost, JPanel panel) {
-		this.Name = Name;
-		this.Cost = Cost;
-		this.panel = panel;
+	public App(String name, double cost, String description, int id) {
+		this.name = name;
+		this.cost = cost;
+		this.description = description;
+		this.id = id;
 	}
 	
-	public boolean isInstalled () {
-		// TODO: Confirm directory is installed
-		return Installed;
+	public int getId() {
+		return id;
 	}
 	
-	/*public void launch() {
-		// InterfaceController.showMessage("Launching " + Name + " is soon to come!");
-		try {
-			Object inst = app.newInstance();
-			Method[] allMethods = app.getDeclaredMethods();
-			for (Method m : allMethods) {
-				String mname = m.getName();
-				if (!mname.startsWith("run")
-				    || (m.getGenericReturnType() != JPanel.class)) {
-				    continue;
-				}
-		 		Type[] pType = m.getGenericParameterTypes();
-		 		if ((pType.length != 1)
-				    || Locale.class.isAssignableFrom(pType[0].getClass())) {
-		 		    continue;
-		 		}
-		 		try {
-				    m.setAccessible(true);
-				    Object o = m.invoke(inst, new Locale("", "", ""));
-				    JPanel p = (JPanel) o ;
-				    Window.guiController.addPanel("App", p);
-				    for(Interface i : Window.guiController.getAllInterfaces()) {
-						Window.guiController.removePanel(i.getIdentity());
-					}
-		 		} catch (InvocationTargetException x) {
-		 			Throwable cause = x.getCause();
-		 			InterfaceController.showMessage(cause.getMessage());
-		 		}
-			}
-		} catch (SecurityException | IllegalArgumentException | InstantiationException | IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}*/
+	public App setAuthor(String author) {
+		this.author = author;
+		return this;
+	}
 	
-	public void launchApp() {
-		JPanel p = new JPanel();
-		p.setBounds(0, 0, 584, 462);
-		p.setLayout(null);
-		p.add(new HeaderPanel());
-		p.add(panel);
-		Window.guiController.addPanel("App", p);
-	    for(Interface i : Window.guiController.getAllInterfaces()) {
-			Window.guiController.removePanel(i.getIdentity());
-		}
-		/*Method method;
-		try {
-			method = app.getDeclaredMethod("run");
-			Object instance = app.newInstance();
-			JPanel result = (JPanel) method.invoke(instance);
-			Window.guiController.addPanel("App", result);
-		    for(Interface i : Window.guiController.getAllInterfaces()) {
-				Window.guiController.removePanel(i.getIdentity());
-			}
-		} catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		
+	public String getAuthor() {
+		return author;
+	}
+	
+	public boolean isInstalled() {
+		return installStatus;
 	}
 	
 	public boolean install() {
-		Object ans = InterfaceController.showDialog(new Object[] {"Yes", "No"}, "Are you sure you want to install " + Name + "?");
+		Object ans = InterfaceController.showDialog(new Object[] {"Yes", "No"}, "Are you sure you want to install " + name + "?");
 		if(ans == "Yes") {
-			Installed = true;
+			URLClassLoader appLoader;
+			Class<?> appBuilder = null;
+
+			try {
+				appLoader = URLClassLoader.newInstance(new URL[] { download });
+				appBuilder = appLoader.loadClass("iezon.app." + name);
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+			
+			object = appBuilder;
+			installStatus = true;
 			return true;
 		}
 		return false;
 	}
 	
 	public boolean uninstall() {
-		Object ans = InterfaceController.showDialog(new Object[] {"Yes", "No"}, "Are you sure you want to uninstall " + Name + "?");
-		if(ans == "Yes") {
-			Installed = false;
+		Object ans = InterfaceController.showDialog(new Object[] {"Yes", "No"}, "Are you sure you want to uninstall " + name + "?");
+		if(ans == "Yes")  {
+			installStatus = false;
 			return true;
 		}
 		return false;
 	}
 	
-	public String getName() {
-		return Name;
+	public App setDownloadUrl(URL download) {
+		this.download = download;
+		return this;
 	}
-
-	public void setName(String name) {
-		Name = name;
+	
+	public URL getDownloadUrl() {
+		return download;
 	}
-
-	public String getDetails() {
-		return Details;
+	
+	public App setClass(Class<?> object) {
+		this.object = object;
+		return this;
 	}
-
-	public void setDetails(String details) {
-		Details = details;
+	
+	public void launchApp() throws Exception {
+		if(object == null)
+			throw new Exception("Please re-install this app.");
+		
+		// System.setSecurityManager(new SecurityManager());
+		Object app;
+		
+		try {
+			app = object.newInstance();
+			JPanel p = new JPanel();
+			p.setBounds(0, 0, 584, 462);
+			p.setLayout(null);
+			p.add(new HeaderPanel());
+			p.add((JPanel) app);
+			Window.guiController.addPanel(name, p);
+			for(Interface i : Window.guiController.getAllInterfaces()) {
+				Window.guiController.removePanel(i.getIdentity());
+			}
+		} catch (AccessControlException e) {
+			InterfaceController.showMessage("Security flaw in " + name + "! " + e.getPermission().getActions());
+			installStatus = false;
+			// TODO: Report to appstore
+		}
 	}
-
+	
+	public String getDescription() {
+		return description;
+	}
+	
 	public double getCost() {
-		return Cost;
-	}
-
-	public void setCost(double cost) {
-		Cost = cost;
+		return cost;
 	}
 	
-	
+	public String getName() {
+		return name;
+	}
 }

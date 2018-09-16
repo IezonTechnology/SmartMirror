@@ -130,12 +130,7 @@ public class LockScreen extends JPanel {
 		btnGo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (Init.usrController.getCurrentUser().checkLogin(Integer.parseInt(code))) {
-					try {
-						AppliationStore.asc = new AppStoreController();
-					} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					AppliationStore.asc = new AppStoreController();
 					Window.guiController.addPanel("Home Screen", new HomeScreen());
 					Window.guiController.removePanel("Lock Screen");
 				} else {

@@ -99,7 +99,7 @@ public class HomeScreen extends JPanel {
 					for (App a : AppliationStore.asc.getAllApps()) {
 						if (a.getName().equalsIgnoreCase(query.split(":")[0])) {
 							InterfaceController.showDialog(new Object[] {a.getName() + " £" +
-									a.getCost(), a.getDetails()}, "You found this app!");
+									a.getCost(), a.getDescription()}, "You found this app!");
 							return;
 						}
 					}
@@ -165,7 +165,11 @@ public class HomeScreen extends JPanel {
 		    				 continue;
 		    			  for(App allApps : AppliationStore.asc.getAllApps()) {
 		    				  if(allApps.getName().equalsIgnoreCase(value.toString())) {
-		    					  allApps.launchApp();
+		    					  try {
+									allApps.launchApp();
+								} catch (Exception e) {
+									InterfaceController.showMessage(e.getMessage());
+								}
 		    				  }
 		    			  }
 		    		  }
