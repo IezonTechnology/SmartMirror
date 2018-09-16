@@ -47,7 +47,6 @@ public class Client {
 			socket = new Socket("localhost", 43594);
 			out = new PrintWriter(socket.getOutputStream(), true);
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			InterfaceController.showMessage("Connected to app server.");
 			status = true;
 		} catch (IOException e) {
 			InterfaceController.showMessage("Could not connect to app server.");
@@ -59,7 +58,6 @@ public class Client {
 		ArrayList<App> appBuilder = new ArrayList<App>();
 		println("get-all-apps");
 		int appAmount = Integer.parseInt(readln());
-		System.out.println(appAmount + " incomming apps...");
 		String response = null;
 		int id = 0;
 		for(int i = 1; i <= appAmount; i++) {
