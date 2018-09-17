@@ -19,9 +19,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import iezon.appstore.App;
+import iezon.interfaces.options.Interface;
 import iezon.interfaces.options.InterfaceController;
 import iezon.main.Init;
 import iezon.main.Window;
+import iezon.security.AppSecurityManager;
 import iezon.users.User;
 
 public class HomeScreen extends JPanel {
@@ -166,9 +168,52 @@ public class HomeScreen extends JPanel {
 		    			  for(App allApps : AppliationStore.asc.getAllApps()) {
 		    				  if(allApps.getName().equalsIgnoreCase(value.toString())) {
 		    					  try {
-									allApps.launchApp();
+									if(!allApps.launchApp()) {
+										AppSecurityManager asm = new AppSecurityManager("file:C:/Temp/" + allApps.getName() + ".policy");
+										Window.guiController.addPanel("Security Policy", new SecurityPolicy());
+										SecurityPolicy.app = allApps;
+										SecurityPolicy.policies = asm.readPolicy(allApps);
+										SecurityPolicy.appLabel.setText(allApps.getName());
+										SecurityPolicy.textPaneLeft.setText("Some BS about risks here");
+										SecurityPolicy.textPaneRight.setText("Some BS about the app ie details and shit");
+										DefaultListModel<String> DLM = new DefaultListModel<String>();
+										
+										for(String policy : asm.readPolicy(allApps)) {
+											DLM.addElement(policy);
+										}
+										
+										SecurityPolicy.list.setModel(DLM);
+										System.setSecurityManager(null);
+										Window.guiController.addPanel("Security Policy", new SecurityPolicy());
+										for(Interface i : Window.guiController.getAllInterfaces())
+											Window.guiController.removePanel(i.getIdentity());
+										return;
+									}
 								} catch (Exception e) {
 									InterfaceController.showMessage(e.getMessage());
+									AppSecurityManager asm;
+									try {
+										asm = new AppSecurityManager("C:/Temp/" + allApps.getName() + ".policy");
+										Window.guiController.addPanel("Security Policy", new SecurityPolicy());
+										SecurityPolicy.app = allApps;
+										SecurityPolicy.policies = asm.readPolicy(allApps);
+										SecurityPolicy.appLabel.setText(allApps.getName());
+										SecurityPolicy.textPaneLeft.setText("Some BS about risks here");
+										SecurityPolicy.textPaneRight.setText("Some BS about the app ie details and shit");
+										DefaultListModel<String> DLM = new DefaultListModel<String>();
+										
+										for(String policy : asm.readPolicy(allApps)) {
+											DLM.addElement(policy);
+										}
+										
+										SecurityPolicy.list.setModel(DLM);
+										System.setSecurityManager(null);
+										for(Interface i : Window.guiController.getAllInterfaces())
+											Window.guiController.removePanel(i.getIdentity());
+										return;
+									} catch (Exception e1) {
+										e1.printStackTrace();
+									}
 								}
 		    				  }
 		    			  }
